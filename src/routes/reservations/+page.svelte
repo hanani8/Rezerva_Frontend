@@ -11,6 +11,10 @@
 
     import { date } from "../../stores/date.js";
 
+    // URL
+
+    import { url } from "../../stores/url";
+
     import {
         reservations,
         pastReservations,
@@ -27,7 +31,7 @@
 
     onMount(async () => {
         const res = await fetch(
-            `http://localhost:5000/api/reservations/${$date}`,
+            `${$url}/api/reservations/${$date}`,
             {
                 method: "GET",
                 credentials: "include",

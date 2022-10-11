@@ -8,10 +8,12 @@
 
     import { date } from "../stores/date.js";
 
+    import { url } from "../stores/url.js";
+
 
     onMount(async () => {
             const res = await fetch(
-                `http://localhost:5000/api/dashboard/${$date}`,
+                `${$url}/api/dashboard/${$date}`,
                 {
                     method: "GET",
                     credentials: "include",

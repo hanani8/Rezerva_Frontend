@@ -10,8 +10,11 @@
 
     import Login from "../lib/login.svelte";
 
+    import { url } from "../stores/url.js";
+
+
     function logout(e) {
-        fetch("http://localhost:5000/api/logout", {
+        fetch(`${$url}/api/logout`, {
             method: "GET",
             credentials: "include",
         })
@@ -25,7 +28,8 @@
     import { onMount } from "svelte";
 
     onMount(async () => {
-        const res = await fetch("http://localhost:5000/api/isloggedin", {
+        
+        const res = await fetch(`${$url}/api/isloggedin`, {
             method: "GET",
             credentials: "include",
         });

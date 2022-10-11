@@ -4,6 +4,9 @@
 
     import { auth } from "../stores/auth.js";
 
+    import { url } from "../stores/url.js";
+
+
     import { goto } from "$app/navigation";
 
     function login(e) {
@@ -20,7 +23,7 @@
             formData.append(key, credentials[key]);
         }
 
-        fetch("http://localhost:5000/api/login", {
+        fetch(`${$url}/api/login`, {
             method : "POST",
             credentials: "include",
 

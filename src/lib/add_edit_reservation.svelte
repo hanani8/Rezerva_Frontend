@@ -1,4 +1,6 @@
 <script>
+    import { url } from '../stores/url';
+
     // To check if called from /add or /edit/[slug]
     export let add_edit;
 
@@ -8,6 +10,8 @@
     import { goto } from "$app/navigation";
 
     import { onMount } from "svelte";
+
+
 
     // Variable to hold reservation data in case of add_edit === "edit"
     let reservation = {
@@ -27,7 +31,7 @@
     if (add_edit === "edit") {
         onMount(async () => {
             const res = await fetch(
-                `http://localhost:5000/api/reservation/${id}`,
+                `${$url}/api/reservation/${id}`,
                 {
                     method: "GET",
                     credentials: "include",
@@ -65,16 +69,16 @@
             formData.append(key, data[key]);
         }
 
-        let url;
+        let URL;
         let method;
 
         if (add_edit === "add") {
-            url = `http://localhost:5000/api/reservation`;
+            URL = `${$url}/api/reservation`;
         } else if (add_edit === "edit") {
-            url = `http://localhost:5000/api/reservation/${id}/edit`;
+            URL = `${$url}/api/reservation/${id}/edit`;
         }
 
-        const res = await fetch(url, {
+        const res = await fetch(URL, {
             method: "POST",
             credentials: "include",
 

@@ -2,6 +2,9 @@
 
 import { date } from "../stores/date";
 
+import { url } from "../stores/url.js";
+
+
 import { reservations, upcomingReservations, pastReservations, noOfReservations, noOfWalkIns } from "../stores/reservations.js";
 
 
@@ -17,7 +20,7 @@ async function dateUpdate(e) {
 
 async function fetchReservations(arg) {
     const res = await fetch(
-        `http://localhost:5000/api/reservations/${arg}`,
+        `${$url}/api/reservations/${arg}`,
         {
             method: "GET",
             credentials: "include",
@@ -38,7 +41,7 @@ async function fetchReservations(arg) {
 async function fetchDashboardData(arg)
 {
     const res = await fetch(
-                `http://localhost:5000/api/dashboard/${arg}`,
+                `${$url}/api/dashboard/${arg}`,
                 {
                     method: "GET",
                     credentials: "include",

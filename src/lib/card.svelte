@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
 
+    import { url } from "../stores/url.js";
 
     export let reservation;
 
@@ -9,7 +10,7 @@
 
     async function cancel(id) {
         const res = await fetch(
-            `http://localhost:5000/api/reservation/${id}/cancel`,
+            `${$url}/api/reservation/${id}/cancel`,
             {
                 method: "GET",
                 credentials: "include",
