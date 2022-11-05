@@ -10,9 +10,9 @@
 
     import { auth } from "$lib/stores";
 
-    console.log($auth);
-
     import { goto } from "$app/navigation";
+
+    import { onMount } from "svelte";
 
     async function logout(e) {
         const data = await getFetch(`${url}/api/logout`);
@@ -22,6 +22,22 @@
             goto("/login");
         }
     }
+
+    async function isLoggedIn() {
+        const data = await getFetch(`${url}/api/isloggedin`);
+
+        if (data.message === "LOGGED_IN") {
+            $auth = "LOGGED_IN";
+        } else if (data.message === "NOT_LOGGED_IN") {
+            $auth = "NOT_LOGGED_IN";
+        }
+    }
+
+    onMount(async () => {
+        isLoggedIn();
+    })
+
+    
 </script>
 
 <main
@@ -51,7 +67,7 @@
                 >
                     Logout
                 </button>
-            <!-- {:else}
+                <!-- {:else}
                 Not Logged In -->
             {/if}
         </div>
