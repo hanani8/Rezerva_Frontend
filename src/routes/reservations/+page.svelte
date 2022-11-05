@@ -1,53 +1,31 @@
 <script>
     // Card Component
 
-    import Card from "../../lib/card.svelte";
+    import Card from "$lib/card.svelte";
 
     // Date Component
 
-    import ChooseDate from "../../lib/chooseDate.svelte";
+    import ChooseDate from "$lib/chooseDate.svelte";
 
-    // Date Value
-
-    import { date } from "../../stores/date.js";
-
-    // URL
-
-    import { url } from "../../stores/url";
+    // Stores
 
     import {
         reservations,
         pastReservations,
         upcomingReservations,
-    } from "../../stores/reservations.js";
+    } from "$lib/stores";
 
-    // Variable to hold reservations from PHP API
+    // Data from Load function
 
-    // let reservations = [];
+    export let data;
 
-    // importing onMount
+    $reservations = data.data["reservations"];
 
-    import { onMount } from "svelte";
+    let dividedReservations = divideReservations($reservations);
 
-    onMount(async () => {
-        const res = await fetch(
-            `${$url}/api/reservations/${$date}`,
-            {
-                method: "GET",
-                credentials: "include",
-            }
-        );
+    $pastReservations = dividedReservations.pastReservations;
 
-        const response = await res.json();
-
-        $reservations = response.data["reservations"];
-
-        let dividedReservations = divideReservations($reservations);
-
-        $pastReservations = dividedReservations.pastReservations;
-
-        $upcomingReservations = dividedReservations.upcomingReservations;
-    });
+    $upcomingReservations = dividedReservations.upcomingReservations;
 
     function divideReservations(reservations) {
         let now = new Date();
@@ -68,6 +46,7 @@
 
         return { pastReservations, upcomingReservations };
     }
+    
 
     let upcoming_past_flag = true;
 

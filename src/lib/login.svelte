@@ -1,21 +1,17 @@
 <script>
-
+    const url = import.meta.env.VITE_URL;
     // Svelte Store Import
-
-    import { auth } from "../stores/auth.js";
-
-    import { url } from "../stores/url.js";
-
-
+    import {auth } from "$lib/stores";
     import { goto } from "$app/navigation";
 
-    function login(e) {
-        const credentials = {
-            userid: document.getElementById('userid').value,
-            username: document.getElementById('username').value,
-            password: document.getElementById('password').value
-        };
+    import { postFetch } from "$lib/fetch";
 
+    async function login(e) {
+        const credentials = {
+            userid: document.getElementById("userid").value,
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value,
+        };
 
         const formData = new FormData();
 
@@ -23,39 +19,55 @@
             formData.append(key, credentials[key]);
         }
 
-        fetch(`${$url}/api/login`, {
-            method : "POST",
-            credentials: "include",
+        const data = await postFetch(`${url}/api/login`, formData);
 
-            body: formData,
-        }).then(response => response.json()).then(data => {console.log(data); auth.set(data.message); goto('/');} );
+        if (data) {
+            auth.set(data.message);
+            goto('/');
+            return;
+        }
     }
-
 </script>
 
-
-<div class="container flex h-full flex-col items-center gap-7 py-8">
+<form
+    on:submit|preventDefault={login}
+    method="POST"
+    class="container flex h-full flex-col items-center gap-7 py-8"
+>
     <!-- User ID -->
-    <div class="w-3/4 flex flex-col justify-between">
+    <div class="flex w-3/4 flex-col justify-between">
         <label for="userid" class="text-xl font-semibold">User ID</label>
-        <input type="text" name="userid" id="userid" class="h-8 outline outline-2 outline-black md:h-10 lg:h-12" />
+        <input
+            type="text"
+            name="userid"
+            id="userid"
+            class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
+        />
     </div>
 
     <!-- Username -->
-    <div class="w-3/4 flex flex-col justify-between">
+    <div class="flex w-3/4 flex-col justify-between">
         <label for="username" class="text-xl font-semibold">Username</label>
-        <input type="text" name="username" id="username" class="h-8 outline outline-2 outline-black md:h-10 lg:h-12" />
+        <input
+            type="text"
+            name="username"
+            id="username"
+            class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
+        />
     </div>
 
     <!-- Password -->
-    <div class="w-3/4 flex flex-col justify-between">
+    <div class="flex w-3/4 flex-col justify-between">
         <label for="password" class="text-xl font-semibold">Password</label>
-        <input type="password" name="password" id="password" class="h-8 outline outline-2 outline-black md:h-10 lg:h-12" />
+        <input
+            type="password"
+            name="password"
+            id="password"
+            class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
+        />
     </div>
 
     <div class="px-2 outline outline-2 outline-black">
-        <button class="text-lg font-semibold" on:click={login}>
-            Login
-        </button>
+        <button class="text-lg font-semibold" type="submit"> Login </button>
     </div>
-</div>
+</form>

@@ -1,45 +1,40 @@
 <script>
-    import { onMount } from "svelte";
+    const url = import.meta.env.VITE_URL;
 
-    import { url } from "../stores/url.js";
+    import { patchFetch } from "$lib/fetch";
+
+    import { goto } from "$app/navigation";
 
     export let reservation;
 
-    let reservation_time;
-    let reservation_date;
+    let status = reservation["status"];
 
     async function cancel(id) {
-        const res = await fetch(
-            `${$url}/api/reservation/${id}/cancel`,
-            {
-                method: "GET",
-                credentials: "include",
-            }
-        );
+        const URL = `${url}/api/reservation/${id}`;
+        const formData = {
+            status: 2,
+        };
+        const data = await patchFetch(URL, JSON.stringify(formData));
 
-        const data = await res.json();
+        if (data) {
+            status = 2;
+        }
     }
 
-    onMount(() => {
-        let date = new Date(reservation['reservation_time']);
-        humanizeDate(date);
-    })
-
-    function humanizeDate(dateObj){
+    function humanizeDate(date) {
+        let dateObj = new Date(date);
         const month = dateObj.getMonth();
-        const date = dateObj.getDate();
+        const day = dateObj.getDate();
         const year = dateObj.getFullYear();
         let hour = dateObj.getHours();
         let minute = dateObj.getMinutes();
 
-        if( hour < '10')
-        {
-            hour = '0' + hour;
+        if (hour < "10") {
+            hour = "0" + hour;
         }
 
-        if (minute < '10')
-        {
-            minute = '0' + minute;
+        if (minute < "10") {
+            minute = "0" + minute;
         }
 
         const months = {
@@ -54,11 +49,15 @@
             8: "Sep",
             9: "Oct",
             10: "Nov",
-            11: "Dec"
-        }
+            11: "Dec",
+        };
 
-        reservation_date = months[month] + " " + date + " " + year;
-        reservation_time = hour + ":" + minute;
+        let reservation_date = months[month] + " " + day + " " + year;
+        let reservation_time = hour + ":" + minute;
+        return {
+            reservation_date,
+            reservation_time,
+        };
     }
 </script>
 
@@ -74,17 +73,23 @@
             {/if}
         </div>
 
-        <div class="mr-2 bg-amber-200 text-center ">
-            <a href="/edit/{reservation['reservation_id']}">edit</a>
-        </div>
+        {#if status !== 2}
+            <div class="mr-2 bg-amber-200 text-center ">
+                <a href="/edit/{reservation['reservation_id']}">edit</a>
+            </div>
 
-        <div class="mr-2 bg-red-500 text-center text-white">
-            <button
-                on:click={() => {
-                    cancel(reservation["reservation_id"]);
-                }}>cancel</button
-            >
-        </div>
+            <div class="mr-2 bg-red-500 text-center text-white">
+                <button
+                    on:click={() => {
+                        cancel(reservation["reservation_id"]);
+                    }}>cancel</button
+                >
+            </div>
+        {:else}
+            <div class="mr-2 bg-red-200 text-center ">
+                <span>cancelled</span>
+            </div>
+        {/if}
     </div>
 
     <p class="font-sans text-lg font-medium">{reservation["guest_name"]}</p>
@@ -93,12 +98,12 @@
         <span class="">Guests: {reservation["no_of_guests"]}</span>
     </p>
 
-    <p class="font-mono text-xl font-semibold">{ reservation_date }</p>
-
-    <p class="font-mono text-xl font-semibold">{ reservation_time }</p>
+    <p class="font-mono text-xl font-semibold">
+        {humanizeDate(reservation["reservation_time"])["reservation_date"]}
+    </p>
 
     <p class="font-mono text-xl font-semibold">
-        Status: {reservation["status"]}
+        {humanizeDate(reservation["reservation_time"])["reservation_time"]}
     </p>
 
     <p class="inline-block px-2 font-mono text-lg font-light outline outline-2">

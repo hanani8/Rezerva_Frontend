@@ -1,32 +1,16 @@
 <script>
-    import { onMount } from "svelte";
     import add from "../assets/add.svg";
 
-    import ChooseDate from "../lib/chooseDate.svelte";
+    import ChooseDate from "$lib/chooseDate.svelte";
 
-    import { noOfReservations, noOfWalkIns } from "../stores/reservations.js";
+    import { noOfReservations, noOfWalkIns , auth} from "$lib/stores";
 
-    import { date } from "../stores/date.js";
+    export let data;
 
-    import { url } from "../stores/url.js";
+    $noOfReservations = data.data.reservations;
 
+    $noOfWalkIns = data.data.walkIns;
 
-    onMount(async () => {
-            const res = await fetch(
-                `${$url}/api/dashboard/${$date}`,
-                {
-                    method: "GET",
-                    credentials: "include",
-                }
-            );
-
-            const response = await res.json();
-
-            $noOfReservations = response.data.reservations;
-
-            $noOfWalkIns = response.data.walkIns;
-
-        });
 
 </script>
 

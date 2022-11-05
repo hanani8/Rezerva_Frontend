@@ -1,44 +1,27 @@
 <script>
+    const url = import.meta.env.VITE_URL;
+
+    import { getFetch } from "$lib/fetch";
+
     import menu from "../assets/menu.svg";
     import home from "../assets/home.svg";
     import list from "../assets/list.svg";
     import account from "../assets/account.svg";
 
-    import { auth } from "../stores/auth.js";
+    import { auth } from "$lib/stores";
 
-    import { date } from "../stores/date.js";
+    console.log($auth);
 
-    import Login from "../lib/login.svelte";
+    import { goto } from "$app/navigation";
 
-    import { url } from "../stores/url.js";
+    async function logout(e) {
+        const data = await getFetch(`${url}/api/logout`);
 
-
-    function logout(e) {
-        fetch(`${$url}/api/logout`, {
-            method: "GET",
-            credentials: "include",
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                auth.set("NOT_LOGGED_IN");
-                goto(`/`);
-            });
+        if (data) {
+            $auth = "NOT_LOGGED_IN";
+            goto("/login");
+        }
     }
-
-    import { onMount } from "svelte";
-
-    onMount(async () => {
-        
-        const res = await fetch(`${$url}/api/isloggedin`, {
-            method: "GET",
-            credentials: "include",
-        });
-
-        const data = await res.json();
-
-        auth.set(data.message);
-
-    });
 </script>
 
 <main
@@ -59,28 +42,25 @@
             >
                 Rezerva
             </span>
-
         </div>
         <div class="mr-2 self-center">
-            <button
-                class="right-0 float-right text-lg font-semibold"
-                on:click={logout}
-            >
-                Logout
-            </button>
+            {#if $auth === "LOGGED_IN"}
+                <button
+                    class="right-0 float-right text-lg font-semibold"
+                    on:click={logout}
+                >
+                    Logout
+                </button>
+            <!-- {:else}
+                Not Logged In -->
+            {/if}
         </div>
     </header>
 
     <!-- Made the container occupy the whole screen, and flex-shrinked it in the layout page -->
 
     <div class="relative flex-1 overflow-auto">
-        {#if $auth === "LOGGED_IN"}
-            <slot />
-        {:else if $auth === "NOT_LOGGED_IN"}
-            <Login />
-        {:else}
-            <p>Internal Server Error!!!</p>
-        {/if}
+        <slot />
     </div>
 
     <footer
