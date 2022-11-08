@@ -3,14 +3,14 @@
 
     import ChooseDate from "$lib/chooseDate.svelte";
 
-    import { noOfReservations, noOfWalkIns , auth} from "$lib/stores";
+    import { noOfReservations, noOfWalkIns, auth } from "$lib/stores";
+    import Reservations from "../lib/reservations.svelte";
 
     export let data;
 
-    $noOfReservations = data.data.reservations;
+    $noOfReservations = data["dashboard"].data.reservations;
 
-    $noOfWalkIns = data.data.walkIns;
-
+    $noOfWalkIns = data["dashboard"].data.walkIns;
 
 </script>
 
@@ -27,26 +27,26 @@
         <option>Yesterday</option>
         <option>Tomorrow</option>
     </select> -->
-    <ChooseDate />
+    <!-- <ChooseDate /> -->
     <!-- Dashboard Stats -->
-    <div class="mt-10 flex flex-col items-center gap-9">
-        <!-- Reservations -->
-        <div
+    <!-- <div class="mt-10 flex flex-col items-center gap-9"> -->
+    <!-- Reservations -->
+    <!-- <div
             class="h:6 flex w-3/4 flex-row justify-evenly outline outline-2 outline-black md:h-8 lg:h-10"
         >
             <span class="my-auto text-xl font-medium"> Reservations </span>
             <span class="my-auto text-3xl font-bold"> { $noOfReservations } </span>
-        </div>
+        </div> -->
 
-        <!-- Walk-Ins -->
-        <div
+    <!-- Walk-Ins -->
+    <!-- <div
             class="h:6 flex w-3/4 flex-row justify-evenly outline outline-2 outline-black md:h-8 lg:h-10"
         >
             <span class="my-auto text-xl font-medium"> Walk-Ins </span>
             <span class="my-auto text-3xl font-bold"> { $noOfWalkIns } </span>
-        </div>
+        </div> -->
 
-        <!-- Repeat Guests
+    <!-- Repeat Guests
         <div
             class="h:6 flex w-3/4 flex-row justify-evenly outline outline-2 outline-black md:h-8 lg:h-10"
         >
@@ -54,12 +54,59 @@
             <span class="my-auto text-3xl font-bold"> 5 </span>
         </div> -->
 
-        <a href="/add">
+    <!-- <a href="/add">
             <img
                 class="md:64 bottom-0 h-48 rounded-full outline outline-4 outline-black lg:h-96"
                 src={add}
                 alt="Add Icon"
             />
-        </a>
+        </a> -->
+
+    <!-- </div> -->
+    <div class="flex w-full flex-col gap-8">
+        <div class="mt-8 flex w-full flex-row justify-center">
+            <a class="h-8 w-4/6" href="/add">
+                <button class="h-full w-full rounded-md bg-neutral-800">
+                    <span class="text-sm font-normal text-white">
+                        Start Booking
+                    </span>
+                </button>
+            </a>
+        </div>
+        <hr class="w-5/6 self-center" />
+        <div class="flex w-full flex-row justify-center gap-3">
+            <div
+                class="space-evenly flex h-24 w-24 flex-col items-center justify-center border bg-neutral-800"
+            >
+                <span class="text-5xl text-white">{$noOfReservations}</span>
+                <br />
+                <span class="text-sm text-white">Reservations</span>
+            </div>
+            <div
+                class="space-evenly flex h-24 w-24 flex-col items-center justify-center border bg-neutral-800"
+            >
+                <span class="text-5xl text-white">{$noOfWalkIns}</span>
+                <br />
+                <span class="text-sm text-white">Walk-Ins</span>
+            </div>
+            <div
+                class="space-evenly flex h-24 w-24 flex-col items-center justify-center border bg-neutral-800"
+            >
+                <span class="text-5xl text-white">{data["dashboard"].data.waitlists}</span>
+                <br />
+                <span class="text-sm text-white">Waitlist</span>
+            </div>
+            <div
+                class="space-evenly flex h-24 w-24 flex-col items-center justify-center border bg-neutral-800"
+            >
+                <span class="text-5xl text-white">13</span>
+                <br />
+                <span class="text-sm text-white">Empty Seats</span>
+            </div>
+        </div>
+
+        <Reservations
+            RESERVATIONS={data["reservations"].data["reservations"]}
+        />
     </div>
 </div>

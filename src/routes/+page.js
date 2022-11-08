@@ -18,14 +18,21 @@ export async function load({ fetch }) {
         }
     );
 
+    const response_1 = await fetch(`${url}/api/reservations/${dateValue}`, {
+        method: "GET",
+        credentials: "include",
+    });
+
     const data = await response.json();
 
-    if(data.message === "NOT_LOGGED_IN")
+    const data_1 = response_1.json();
+
+    if(data.message === "NOT_LOGGED_IN" || data_1.message === "NOT_LOGGED_IN")
     {
         auth.set("NOT_LOGGED_IN");
         throw redirect(301, '/login');
     }
 
-    return data;
+    return {"dashboard": data, "reservations": data_1};
 
 }
