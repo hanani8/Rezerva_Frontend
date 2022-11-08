@@ -7,6 +7,9 @@
     import home from "../assets/home.svg";
     import list from "../assets/list.svg";
     import account from "../assets/account.svg";
+    import cross from "../assets/cross.svg";
+    import reservation from "../assets/reservation.svg";
+    import walkin from "../assets/walkin.svg";
 
     import { auth } from "$lib/stores";
 
@@ -35,9 +38,13 @@
 
     onMount(async () => {
         isLoggedIn();
-    })
+    });
 
-    
+    function sidebar(e) {
+        SIDEBAR = !SIDEBAR;
+    }
+
+    let SIDEBAR = false;
 </script>
 
 <main
@@ -49,12 +56,16 @@
         <div class="flex flex-row gap-3">
             <!-- Menu Icon -->
 
-            <img class="h-full" src={menu} alt="Menu Icon" />
+            {#if $auth === "LOGGED_IN"}
+                <button on:click={sidebar}>
+                    <img class="h-full" src={menu} alt="Menu Icon" />
+                </button>
+            {/if}
 
             <!-- Title -->
 
             <span
-                class="my-auto  font-mono text-3xl font-semibold tracking-wide"
+                class="my-auto font-mono text-3xl font-semibold tracking-wide"
             >
                 Rezerva
             </span>
@@ -67,11 +78,41 @@
                 >
                     Logout
                 </button>
-                <!-- {:else}
-                Not Logged In -->
             {/if}
         </div>
     </header>
+
+    <!-- Sidebar -->
+
+    {#if SIDEBAR === true}
+        <div
+            class="fixed z-40 flex h-screen w-80 flex-col overflow-y-auto bg-white p-4"
+            tabindex="-1"
+        >
+            <div>
+                <button class="float-right" on:click={sidebar}>
+                    <img src={cross} alt="X Icon" />
+                </button>
+            </div>
+            <div class="flex flex-col items-center gap-7">
+                <div>
+                    <a class="text-lg font-semibold" href="/add?type=1">
+                        <button on:click={sidebar}> Reservations </button>
+                    </a>
+                </div>
+                <div>
+                    <a class="text-lg font-semibold" href="/add?type=2">
+                        <button on:click={sidebar}> Walk-Ins </button>
+                    </a>
+                </div>
+                <div>
+                    <button class="text-lg font-semibold" on:click={logout}>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    {/if}
 
     <!-- Made the container occupy the whole screen, and flex-shrinked it in the layout page -->
 

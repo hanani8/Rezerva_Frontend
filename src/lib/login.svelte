@@ -34,6 +34,7 @@
     method="POST"
     class="container flex h-full flex-col items-center gap-7 py-8"
 >
+
     <!-- User ID -->
     <div class="flex w-3/4 flex-col justify-between">
         <label for="userid" class="text-xl font-semibold">User ID</label>
@@ -43,6 +44,12 @@
             id="userid"
             class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
         />
+    </div>
+
+    <div>
+        <span class="font-mono tracking-wide">
+            OR
+        </span>
     </div>
 
     <!-- Username -->
