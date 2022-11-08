@@ -7,57 +7,62 @@
 
     import ChooseDate from "$lib/chooseDate.svelte";
 
-    // Stores
+    // Reservations Component
 
-    import {
-        reservations,
-        pastReservations,
-        upcomingReservations,
-    } from "$lib/stores";
+    import Reservations from "$lib/reservations.svelte";
 
-    // Data from Load function
+    // // Stores
+
+    // import {
+    //     reservations,
+    //     pastReservations,
+    //     upcomingReservations,
+    // } from "$lib/stores";
+
+    // // Data from Load function
 
     export let data;
 
-    $reservations = data.data["reservations"];
+    // $reservations = data.data["reservations"];
 
-    let dividedReservations = divideReservations($reservations);
+    // let dividedReservations = divideReservations($reservations);
 
-    $pastReservations = dividedReservations.pastReservations;
+    // $pastReservations = dividedReservations.pastReservations;
 
-    $upcomingReservations = dividedReservations.upcomingReservations;
+    // $upcomingReservations = dividedReservations.upcomingReservations;
 
-    function divideReservations(reservations) {
-        let now = new Date();
+    // function divideReservations(reservations) {
+    //     let now = new Date();
 
-        let pastReservations = [];
+    //     let pastReservations = [];
 
-        let upcomingReservations = [];
+    //     let upcomingReservations = [];
 
-        for (let i = 0; i < reservations.length; i++) {
-            let reservation_time = new Date(reservations[i].reservation_time);
+    //     for (let i = 0; i < reservations.length; i++) {
+    //         let reservation_time = new Date(reservations[i].reservation_time);
 
-            if (reservation_time >= now) {
-                upcomingReservations.push(reservations[i]);
-            } else {
-                pastReservations.push(reservations[i]);
-            }
-        }
+    //         if (reservation_time >= now) {
+    //             upcomingReservations.push(reservations[i]);
+    //         } else {
+    //             pastReservations.push(reservations[i]);
+    //         }
+    //     }
 
-        return { pastReservations, upcomingReservations };
-    }
+    //     return { pastReservations, upcomingReservations };
+    // }
     
 
-    let upcoming_past_flag = true;
+    // let upcoming_past_flag = true;
 
-    function upcoming_past(e) {
-        upcoming_past_flag = !upcoming_past_flag;
-    }
+    // function upcoming_past(e) {
+    //     upcoming_past_flag = !upcoming_past_flag;
+    // }
 </script>
 
 <div class="container h-screen">
+    <Reservations RESERVATIONS = {data.data["reservations"]} />
     <!-- Dropdown of "What data to see?" -->
-    <ChooseDate />
+    <!-- <ChooseDate />
 
     <button
         class="float-right mt-2 mr-2 px-2 outline outline-2"
@@ -86,5 +91,5 @@
                 <Card {reservation} />
             {/each}
         {/if}
-    </div>
+    </div> -->
 </div>
