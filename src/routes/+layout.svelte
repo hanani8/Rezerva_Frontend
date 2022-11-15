@@ -64,9 +64,7 @@
 
             <!-- Title -->
 
-            <span
-                class="my-auto font-mono text-3xl font-semibold tracking-wide"
-            >
+            <span class="my-auto text-3xl font-semibold tracking-wide">
                 Rezerva
             </span>
         </div>
@@ -86,7 +84,7 @@
 
     {#if SIDEBAR === true}
         <div
-            class="fixed z-40 flex h-screen w-80 flex-col overflow-y-auto bg-white p-4"
+            class="fixed z-40 flex w-80 flex-col overflow-y-auto bg-white p-4"
             tabindex="-1"
         >
             <div>
@@ -94,15 +92,31 @@
                     <img src={cross} alt="X Icon" />
                 </button>
             </div>
-            <div class="flex flex-col items-center gap-7">
+            <div class="flex flex-col gap-7">
                 <div>
                     <a class="text-lg font-semibold" href="/add?type=1">
-                        <button on:click={sidebar}> Reservations </button>
+                        <button on:click={sidebar}> Reservation </button>
                     </a>
                 </div>
                 <div>
                     <a class="text-lg font-semibold" href="/add?type=2">
-                        <button on:click={sidebar}> Walk-Ins </button>
+                        <button on:click={sidebar}> Walk-In </button>
+                    </a>
+                </div>
+                <div>
+                    <p class="text-lg font-semibold">Waitlist</p>
+                    <a
+                        href="/add/waitlist?type=1"
+                        class="text-md flot-right ml-8"
+                    >
+                        <button on:click={sidebar}> Reservation </button>
+                    </a>
+                    <br />
+                    <a
+                        href="/add/waitlist?type=2"
+                        class="text-md flot-right ml-8"
+                    >
+                        <button on:click={sidebar}> Walk-In </button>
                     </a>
                 </div>
                 <div>
