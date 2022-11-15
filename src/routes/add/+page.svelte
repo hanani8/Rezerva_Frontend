@@ -120,7 +120,7 @@
             class="container flex h-full flex-col items-center gap-7 py-8"
         >
             <!-- Date -->
-            <div class="flex w-3/4 justify-around">
+            <div class="flex flex-row w-3/4 justify-around">
                 <div class="flex w-5/12 flex-col">
                     <label for="date" class="text-xl font-semibold">Date</label>
                     <input

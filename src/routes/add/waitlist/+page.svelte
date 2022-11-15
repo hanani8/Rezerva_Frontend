@@ -58,7 +58,7 @@
     }
 </script>
 
-<div class="flex w-full flex-col gap-8 h-full bg-gray-400">
+<div class="flex h-full w-full flex-col gap-8 bg-gray-400">
     <div class="mt-3 self-center px-2 text-2xl outline outline-2">Waitlist</div>
     <div class="mt-8 flex w-full flex-row justify-evenly">
         {#if reservation_walkin == 1}
@@ -120,7 +120,7 @@
             class="container flex h-full flex-col items-center gap-7 py-8"
         >
             <!-- Date -->
-            <div class="flex w-3/4 justify-around">
+            <div class="flex w-3/4 flex-row justify-around">
                 <div class="flex w-5/12 flex-col">
                     <label for="date" class="text-xl font-semibold">Date</label>
                     <input

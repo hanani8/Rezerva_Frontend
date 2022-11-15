@@ -80,33 +80,35 @@
     class="container flex h-full flex-col items-center gap-7 py-8"
     id="edit-form"
 >
-    <!-- Date -->
-    <div class="flex w-3/4 flex-col">
-        <label for="date" class="text-xl font-semibold">Date</label>
-        <input
-            type="date"
-            min={TODAY_DATE}
-            id="date"
-            name="date"
-            data-value={reservation["date"]}
-            value={reservation["date"]}
-            class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
-            required
-        />
-    </div>
+    <div class="flex w-3/4 flex-row justify-around">
+        <!-- Date -->
+        <div class="flex w-5/12 flex-col">
+            <label for="date" class="text-xl font-semibold">Date</label>
+            <input
+                type="date"
+                min={TODAY_DATE}
+                id="date"
+                name="date"
+                data-value={reservation["date"]}
+                value={reservation["date"]}
+                class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
+                required
+            />
+        </div>
 
-    <!-- Time -->
-    <div class="flex w-3/4 flex-col">
-        <label for="time" class="text-xl font-semibold">Time</label>
-        <input
-            type="time"
-            id="time"
-            name="time"
-            data-value={reservation["time"]}
-            value={reservation["time"]}
-            class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
-            required
-        />
+        <!-- Time -->
+        <div class="flex w-5/12 flex-col">
+            <label for="time" class="text-xl font-semibold">Time</label>
+            <input
+                type="time"
+                id="time"
+                name="time"
+                data-value={reservation["time"]}
+                value={reservation["time"]}
+                class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
+                required
+            />
+        </div>
     </div>
 
     <!-- Type - {Reservation / Walk-in} -->
