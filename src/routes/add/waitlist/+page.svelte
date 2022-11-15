@@ -30,7 +30,6 @@
             status: status,
             // type: document.getElementById("type").value,
             type: reservation_walkin,
-            table: document.getElementById("table").value,
         };
 
         const formData = new FormData();
@@ -59,7 +58,8 @@
     }
 </script>
 
-<div class="flex w-full h-full flex-col gap-8">
+<div class="flex w-full flex-col gap-8 h-full bg-gray-400">
+    <div class="mt-3 self-center px-2 text-2xl outline outline-2">Waitlist</div>
     <div class="mt-8 flex w-full flex-row justify-evenly">
         {#if reservation_walkin == 1}
             <button
@@ -191,32 +191,21 @@
                     />
                 </div>
 
-                <!-- Table No -->
+                <!-- Phone -->
                 <div class="flex w-5/12 flex-col">
-                    <label for="table" class="text-xl font-semibold"
-                        >Table No</label
+                    <label for="phone" class="text-xl font-semibold"
+                        >Phone</label
                     >
                     <input
-                        type="text"
-                        id="table"
-                        name="table"
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        minlength="10"
+                        maxlength="10"
                         class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
+                        required
                     />
                 </div>
-            </div>
-
-            <!-- Phone -->
-            <div class="flex w-3/4 flex-col">
-                <label for="phone" class="text-xl font-semibold">Phone</label>
-                <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    minlength="10"
-                    maxlength="10"
-                    class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
-                    required
-                />
             </div>
 
             <!-- Instructions -->
@@ -234,8 +223,14 @@
 
             <div class="flex w-full justify-around">
                 <div class="px-2 outline outline-2 outline-black ">
-                    <button class="text-lg font-semibold" type="submit">
-                        Enter
+                    <button
+                        on:click={() => {
+                            status = 1;
+                        }}
+                        class="text-lg font-semibold"
+                        type="submit"
+                    >
+                        Waitlist
                     </button>
                 </div>
             </div>
