@@ -59,8 +59,8 @@
     // }
 </script>
 
-<div class="container h-screen">
-    <Reservations RESERVATIONS = {data.data["reservations"]} />
+<div>
+    <Reservations dashboard_reservations = {"reservations"} RESERVATIONS = {data.data["reservations"]} />
     <!-- Dropdown of "What data to see?" -->
     <!-- <ChooseDate />
 

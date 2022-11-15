@@ -1,15 +1,23 @@
 <script>
     const url = import.meta.env.VITE_URL;
 
+    export let limit;
+
+    export let offset;
+
     import { getFetch } from "$lib/fetch";
 
     import {
         date,
         reservations,
-        upcomingReservations,
-        pastReservations,
+        // upcomingReservations,
+        reservations_,
+        walkins,
+        waitlist,
+        // pastReservations,
         noOfReservations,
         noOfWalkIns,
+        noOfWaitlists
     } from "$lib/stores";
 
     async function dateUpdate(e) {
@@ -21,16 +29,18 @@
     }
 
     async function fetchReservations(arg) {
-        const data = await getFetch(`${url}/api/reservations/${arg}`);
+        const data = await getFetch(`${url}/api/reservations/${arg}/?limit=${limit}&offset=${offset}`);
 
         if (data) {
             $reservations = data.data["reservations"];
 
             let dividedReservations = divideReservations($reservations);
 
-            $pastReservations = dividedReservations.pastReservations;
+            $reservations_ = dividedReservations.reservations_;
 
-            $upcomingReservations = dividedReservations.upcomingReservations;
+            $walkins = dividedReservations.walkins;
+
+            $waitlist = dividedReservations.waitlist;
         }
     }
 
@@ -41,27 +51,56 @@
             $noOfReservations = data.data.reservations;
 
             $noOfWalkIns = data.data.walkIns;
+
+            $noOfWaitlists = data.data.waitlists;
+
         }
     }
 
+    // function divideReservations(reservations) {
+    //     let now = new Date();
+
+    //     let pastReservations = [];
+
+    //     let upcomingReservations = [];
+
+    //     for (let i = 0; i < reservations.length; i++) {
+    //         let reservation_time = new Date(reservations[i].reservation_time);
+
+    //         if (reservation_time >= now) {
+    //             upcomingReservations.push(reservations[i]);
+    //         } else {
+    //             pastReservations.push(reservations[i]);
+    //         }
+    //     }
+
+    //     return { pastReservations, upcomingReservations };
+    // }
+
     function divideReservations(reservations) {
-        let now = new Date();
+        let reservations_ = [];
 
-        let pastReservations = [];
+        let walkins = [];
 
-        let upcomingReservations = [];
+        let waitlist = [];
 
         for (let i = 0; i < reservations.length; i++) {
-            let reservation_time = new Date(reservations[i].reservation_time);
+            let type = reservations[i].type;
 
-            if (reservation_time >= now) {
-                upcomingReservations.push(reservations[i]);
+            let status = reservations[i].status;
+
+            if (status === 1) {
+                waitlist.push(reservations[i]);
             } else {
-                pastReservations.push(reservations[i]);
+                if (type === 1) {
+                    reservations_.push(reservations[i]);
+                } else if (type === 2) {
+                    walkins.push(reservations[i]);
+                }
             }
         }
 
-        return { pastReservations, upcomingReservations };
+        return { reservations_, walkins, waitlist };
     }
 </script>
 

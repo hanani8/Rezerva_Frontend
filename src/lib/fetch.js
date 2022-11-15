@@ -11,7 +11,7 @@ export async function getFetch(url)
 
     const data = await response.json();
 
-    if (data.message === "NOT_LOGGED_IN") {
+    if (data.message === "NOT_LOGGED_IN" && url.endsWith("/api/isloggedin") == false) {
         auth.set("NOT_LOGGED_IN");
         goto("/login");
         return;
