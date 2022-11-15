@@ -7,12 +7,22 @@
 
     import ChooseDate from "$lib/chooseDate.svelte";
 
+    // Filter Component
+
+    import Filter from "./filter.svelte";
+
+    // Property to check if the component is from dashboard or in the reservations page
+
+    export let dashboard_reservations;
+
     // Stores
 
     import {
         reservations,
-        pastReservations,
-        upcomingReservations,
+        reservations_,
+        walkins,
+        waitlist,
+        filter,
     } from "$lib/stores";
 
     // Data from Load function
@@ -22,67 +32,62 @@
     $reservations = RESERVATIONS;
 
     let dividedReservations = divideReservations($reservations);
-
-    $pastReservations = dividedReservations.pastReservations;
-
-    $upcomingReservations = dividedReservations.upcomingReservations;
+    $reservations_ = dividedReservations.reservations_;
+    $walkins = dividedReservations.walkins;
+    $waitlist = dividedReservations.waitlist;
 
     function divideReservations(reservations) {
-        let now = new Date();
+        let reservations_ = [];
 
-        let pastReservations = [];
+        let walkins = [];
 
-        let upcomingReservations = [];
+        let waitlist = [];
 
         for (let i = 0; i < reservations.length; i++) {
-            let reservation_time = new Date(reservations[i].reservation_time);
+            let type = reservations[i].type;
 
-            if (reservation_time >= now) {
-                upcomingReservations.push(reservations[i]);
+            let status = reservations[i].status;
+
+            if (status === 1) {
+                waitlist.push(reservations[i]);
             } else {
-                pastReservations.push(reservations[i]);
+                if (type === 1) {
+                    reservations_.push(reservations[i]);
+                } else if (type === 2) {
+                    walkins.push(reservations[i]);
+                }
             }
         }
 
-        return { pastReservations, upcomingReservations };
-    }
-    
-
-    let upcoming_past_flag = true;
-
-    function upcoming_past(e) {
-        upcoming_past_flag = !upcoming_past_flag;
+        return { reservations_, walkins, waitlist };
     }
 </script>
 
-<div class="container h-screen">
+<div>
     <!-- Dropdown of "What data to see?" -->
-    <ChooseDate />
-
-    <button
-        class="float-right mt-2 mr-2 px-2 outline outline-2"
-        on:click={upcoming_past}
-    >
-        {#if upcoming_past_flag === true}
-            Past
-        {:else}
-            Upcoming
-        {/if}
-    </button>
-
-    {#if upcoming_past_flag === true}
-        <span class="text-3xl font-normal underline"> Upcoming </span>
-    {:else}
-        <span class="text-3xl font-normal underline"> Past </span>
+    {#if dashboard_reservations === "dashboard"}
+        <ChooseDate limit={5} offset={0} />
+    {:else if dashboard_reservations === "reservations"}
+        <ChooseDate limit={0} offset={0} />
     {/if}
 
-    <div class="mx-3 mt-3 flex flex-col gap-7 overflow-auto">
-        {#if upcoming_past_flag === true}
-            {#each $upcomingReservations as reservation}
+    <Filter />
+
+    <div class="mx-3 my-3 flex flex-col gap-3 overflow-auto">
+        {#if $filter === "4"}
+            {#each $reservations as reservation}
                 <Card {reservation} />
             {/each}
-        {:else}
-            {#each $pastReservations as reservation}
+        {:else if $filter === "1"}
+            {#each $reservations_ as reservation}
+                <Card {reservation} />
+            {/each}
+        {:else if $filter === "2"}
+            {#each $walkins as reservation}
+                <Card {reservation} />
+            {/each}
+        {:else if $filter === "3"}
+            {#each $waitlist as reservation}
                 <Card {reservation} />
             {/each}
         {/if}
