@@ -19,6 +19,7 @@
         phone: "",
         status: "",
         type: "",
+        table: "",
     };
 
     let status = 0;
@@ -37,35 +38,35 @@
     }
 
     async function submit(e) {
-
-        const form = document.querySelector('form');
+        const form = document.querySelector("form");
 
         const fieldsOfEditForm = Array.from(form);
 
         // console.log(fieldsOfEditForm);
 
-        const fieldsOfEditFormThatHaveBeenUpdated = fieldsOfEditForm.filter(el => (el.dataset.value != el.value && el.id != "submit"));
+        const fieldsOfEditFormThatHaveBeenUpdated = fieldsOfEditForm.filter(
+            (el) => el.dataset.value != el.value && el.id != "submit"
+        );
 
         const formData = {};
 
-        fieldsOfEditFormThatHaveBeenUpdated.forEach(element => {
-            if(element.id == "data" || element.id == "time")
-            {
-                const reservation_time = document.getElementById("date").value + " " + document.getElementById("time").value;
+        fieldsOfEditFormThatHaveBeenUpdated.forEach((element) => {
+            if (element.id == "data" || element.id == "time") {
+                const reservation_time =
+                    document.getElementById("date").value +
+                    " " +
+                    document.getElementById("time").value;
 
                 formData["reservation_time"] = reservation_time;
-
-            }
-            else 
-            {
+            } else {
                 formData[element.id] = element.value;
             }
-        }); 
+        });
 
         const URL = `${url}/api/reservation/${id}`;
 
         const data = await patchFetch(URL, JSON.stringify(formData));
-        
+
         console.log(data);
 
         if (data) {
@@ -146,21 +147,37 @@
         />
     </div>
 
-    <!-- No. of Guests -->
-    <div class="flex w-3/4 flex-col">
-        <label for="no_of_guests" class="text-xl font-semibold"
-            >No. of accompanying persons</label
-        >
-        <input
-            type="number"
-            id="no_of_guests"
-            min="1"
-            name="no_of_guests"
-            data-value={reservation["no_of_guests"]}
-            value={reservation["no_of_guests"]}
-            class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
-            required
-        />
+    <div class="flex w-3/4 justify-around">
+        <!-- No. of Guests -->
+        <div class="flex w-5/12 flex-col">
+            <label for="no_of_guests" class="text-xl font-semibold"
+                >Headcount</label
+            >
+            <input
+                type="number"
+                id="no_of_guests"
+                min="1"
+                name="no_of_guests"
+                data-value={reservation["no_of_guests"]}
+                value={reservation["no_of_guests"]}
+                class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
+                required
+            />
+        </div>
+
+        <!-- Table No -->
+        <div class="flex w-5/12 flex-col">
+            <label for="table" class="text-xl font-semibold">Table No</label>
+            <input
+                type="text"
+                id="table"
+                name="table"
+                data-value={reservation["table"]}
+                value={reservation["table"]}
+                class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
+                required
+            />
+        </div>
     </div>
 
     <!-- Phone -->
@@ -195,6 +212,8 @@
     </div>
 
     <div class="px-2 outline outline-2 outline-black ">
-        <button class="text-lg font-semibold" type="submit" id="submit"> Submit </button>
+        <button class="text-lg font-semibold" type="submit" id="submit">
+            Submit
+        </button>
     </div>
 </form>
