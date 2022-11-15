@@ -10,7 +10,7 @@ export async function load({fetch}) {
 
     let dateValue = get(date);
 
-    const response = await fetch(`${url}/api/reservations/${dateValue}`, {
+    const response = await fetch(`${url}/api/reservations/${dateValue}/?limit=0&offset=0`, {
         method: "GET",
         credentials: "include",
     });

@@ -18,7 +18,7 @@ export async function load({ fetch }) {
         }
     );
 
-    const response_1 = await fetch(`${url}/api/reservations/${dateValue}`, {
+    const response_1 = await fetch(`${url}/api/reservations/${dateValue}/?limit=5&offset=0`, {
         method: "GET",
         credentials: "include",
     });
