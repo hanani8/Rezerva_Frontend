@@ -126,6 +126,7 @@
                     <input
                         type="date"
                         min={TODAY_DATE}
+                        value={TODAY_DATE}
                         id="date"
                         name="date"
                         class="h-8 outline outline-2 outline-black md:h-10 lg:h-12"
