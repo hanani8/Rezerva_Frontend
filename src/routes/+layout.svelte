@@ -45,6 +45,16 @@
     }
 
     let SIDEBAR = false;
+
+    export let data;
+
+    let restaurantLocation;
+    let restaurantName;
+
+    if (data.message === "READ_RESTAURANT_SUCCEEDED") {
+        restaurantName = data.data["restaurant"]["restaurant_name"];
+        restaurantLocation = data.data["restaurant"]["location"];
+    }
 </script>
 
 <main
@@ -67,6 +77,19 @@
             <span class="my-auto text-3xl font-semibold tracking-wide">
                 Rezerva
             </span>
+
+            <!-- Restaurant Name -->
+
+            <!-- <span class="my-auto w-24 overflow-x-auto text-md font-normal">
+                {restaurantName}
+            </span> -->
+
+            <!-- Restaurant Location -->
+            {#if $auth === "LOGGED_IN"}
+                <span class="my-auto text-sm font-normal">
+                    {restaurantLocation}
+                </span>
+            {/if}
         </div>
         <div class="mr-2 self-center">
             {#if $auth === "LOGGED_IN"}
