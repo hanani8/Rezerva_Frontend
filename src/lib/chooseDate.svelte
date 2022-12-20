@@ -10,14 +10,12 @@
     import {
         date,
         reservations,
-        // upcomingReservations,
         reservations_,
         walkins,
         waitlist,
-        // pastReservations,
         noOfReservations,
         noOfWalkIns,
-        noOfWaitlists
+        noOfWaitlists,
     } from "$lib/stores";
 
     async function dateUpdate(e) {
@@ -29,7 +27,9 @@
     }
 
     async function fetchReservations(arg) {
-        const data = await getFetch(`${url}/api/reservations/${arg}/?limit=${limit}&offset=${offset}`);
+        const data = await getFetch(
+            `${url}/api/reservations/${arg}/?limit=${limit}&offset=${offset}`
+        );
 
         if (data) {
             $reservations = data.data["reservations"];
@@ -53,29 +53,8 @@
             $noOfWalkIns = data.data.walkIns;
 
             $noOfWaitlists = data.data.waitlists;
-
         }
     }
-
-    // function divideReservations(reservations) {
-    //     let now = new Date();
-
-    //     let pastReservations = [];
-
-    //     let upcomingReservations = [];
-
-    //     for (let i = 0; i < reservations.length; i++) {
-    //         let reservation_time = new Date(reservations[i].reservation_time);
-
-    //         if (reservation_time >= now) {
-    //             upcomingReservations.push(reservations[i]);
-    //         } else {
-    //             pastReservations.push(reservations[i]);
-    //         }
-    //     }
-
-    //     return { pastReservations, upcomingReservations };
-    // }
 
     function divideReservations(reservations) {
         let reservations_ = [];
