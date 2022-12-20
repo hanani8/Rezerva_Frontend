@@ -2,33 +2,49 @@ import { auth } from "$lib/stores";
 
 import { goto } from "$app/navigation";
 
-export async function getFetch(url)
-{
-    const response = await fetch(url, {
-        method: "GET",
-        credentials: "include",
-    });
+import { authStore } from "./stores/authStore";
 
-    const data = await response.json();
+export async function getFetch(url, auth_url = "/login") {
 
-    if (data.message === "NOT_LOGGED_IN" && url.endsWith("/api/isloggedin") == false) {
-        auth.set("NOT_LOGGED_IN");
-        goto("/login");
-        return;
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+            credentials: "include",
+        });
+
+        // If PHPSESSID expires
+        if (response.status === 401) {
+            authStore.logout();
+            goto(auth_url);
+            return
+        }
+
+        const data = await response.json();
+
+        return data;
+
+    } catch (e) {
+        console.error(e);
     }
 
-    return data;
 }
 
 
-export async function postFetch(url, formData)
-{
+export async function postFetch(url, formData, auth_url = "/login") {
     const response = await fetch(url, {
         method: "POST",
         credentials: "include",
 
         body: formData,
     });
+
+    // If PHPSESSID expires
+
+    if (response.status === 401) {
+        authStore.logout();
+        goto(auth_url);
+        return;
+    }
 
     const data = await response.json();
 
@@ -41,14 +57,21 @@ export async function postFetch(url, formData)
     return data;
 }
 
-export async function patchFetch(url, formData)
-{
+export async function patchFetch(url, formData, auth_url = "/login") {
     const response = await fetch(url, {
         method: "PATCH",
         credentials: "include",
 
         body: formData,
     });
+
+    // If PHPSESSID expires
+
+    if (response.status === 401) {
+        authStore.logout();
+        goto(auth_url);
+        return
+    }
 
     const data = await response.json();
 
