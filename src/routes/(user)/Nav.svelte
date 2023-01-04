@@ -39,13 +39,12 @@
 
         <!-- Title -->
 
-        <span class="my-auto text-3xl font-semibold tracking-wide">
+        <span class="my-auto text-2xl font-semibold tracking-wide">
             Rezerva
         </span>
 
         <!-- Restaurant Location -->
         <span class="my-auto text-sm font-normal">
-            Location:
             {$restaurantLocation}
         </span>
     </div>
@@ -82,19 +81,8 @@
                     </a>
                 </div>
                 <div>
-                    <p class="text-lg font-semibold">Waitlist</p>
-                    <a
-                        href="/add/waitlist?type=1"
-                        class="text-md flot-right ml-8"
-                    >
-                        <button on:click={sidebar}> Reservation </button>
-                    </a>
-                    <br />
-                    <a
-                        href="/add/waitlist?type=2"
-                        class="text-md flot-right ml-8"
-                    >
-                        <button on:click={sidebar}> Walk-In </button>
+                    <a class="text-lg font-semibold" href="/add/waitlist">
+                        <button on:click={sidebar}> Waitlist </button>
                     </a>
                 </div>
                 <div>

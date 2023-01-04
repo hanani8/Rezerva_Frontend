@@ -62,13 +62,6 @@
                 <br />
                 <span class="text-sm text-white">Waitlist</span>
             </div>
-            <div
-                class="space-evenly flex h-24 w-24 flex-col items-center justify-center border bg-neutral-800"
-            >
-                <span class="text-5xl text-white">13</span>
-                <br />
-                <span class="text-sm text-white">Empty Seats</span>
-            </div>
         </div>
 
         <Reservations

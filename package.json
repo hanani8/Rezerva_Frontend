@@ -23,6 +23,7 @@
 	"type": "module",
 	"format": "prettier --write '{public,src}/**/*.{css,html,js,svelte}'",
 	"dependencies": {
+		"axios": "^1.2.1",
 		"typescript": "^4.8.4"
 	}
 }

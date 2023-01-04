@@ -11,13 +11,13 @@
 
     const TODAY_DATE = new Date().toISOString().split("T")[0];
 
-    let reservation_walkin = 0;
+    // All waitlists are of reservation type
 
-    let status = 0;
+    let reservation_walkin = 1;
 
-    if ($page.url.searchParams.has("type")) {
-        reservation_walkin = $page.url.searchParams.get("type");
-    }
+    // Status:1 indicate a waitlisted row
+
+    let status = 1;
 
     async function submit(e) {
         const inputData = {
@@ -28,7 +28,6 @@
             date: document.getElementById("date").value,
             time: document.getElementById("time").value,
             status: status,
-            // type: document.getElementById("type").value,
             type: reservation_walkin,
         };
 
@@ -60,41 +59,6 @@
 
 <div class="flex h-full w-full flex-col gap-8 bg-gray-400">
     <div class="mt-3 self-center px-2 text-2xl outline outline-2">Waitlist</div>
-    <div class="mt-8 flex w-full flex-row justify-evenly">
-        {#if reservation_walkin == 1}
-            <button
-                on:click={reservation}
-                class="h-8 w-1/3 bg-black outline outline-4 outline-offset-2 active:bg-neutral-700"
-            >
-                <span class="text-white"> Reservation </span>
-            </button>
-        {:else}
-            <button
-                on:click={reservation}
-                class="h-8 w-1/3 bg-black active:bg-neutral-700"
-            >
-                <span class="text-white"> Reservation </span>
-            </button>
-        {/if}
-
-        {#if reservation_walkin == 2}
-            <button
-                on:click={walkin}
-                class="w-1/3 bg-black outline outline-4 outline-offset-2 active:bg-neutral-700"
-            >
-                <span class="text-white"> Walk-In </span>
-            </button>
-        {:else}
-            <button
-                on:click={walkin}
-                class="w-1/3 bg-black active:bg-neutral-700"
-            >
-                <span class="text-white"> Walk-In </span>
-            </button>
-        {/if}
-    </div>
-
-    <hr class="w-3/4 self-center" />
 
     <!-- A Common Component For Adding and Editing Reservation -->
     {#if reservation_walkin == 1 || reservation_walkin == 2}
@@ -224,13 +188,7 @@
 
             <div class="flex w-full justify-around">
                 <div class="px-2 outline outline-2 outline-black ">
-                    <button
-                        on:click={() => {
-                            status = 1;
-                        }}
-                        class="text-lg font-semibold"
-                        type="submit"
-                    >
+                    <button class="text-lg font-semibold" type="submit">
                         Waitlist
                     </button>
                 </div>

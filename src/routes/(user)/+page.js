@@ -29,6 +29,8 @@ export async function load() {
         getFetch(`${url}/api/reservations/${dateValue}/?limit=5&offset=0`)
     ])
 
+    unsubscribe();
+
     return { "dashboard": results[0], "reservations": results[1] };
 
 }
