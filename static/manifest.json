@@ -1,0 +1,15 @@
+{
+    "background_color": "purple",
+    "description": "Rezerva - Reservations module for Cheesecake",
+    "display": "fullscreen",
+    "icons": [
+        {
+            "src": "/cheesecake.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "name": "Rezerva - Cheesecake",
+    "short_name": "Rezerva",
+    "start_url": "/"
+}
