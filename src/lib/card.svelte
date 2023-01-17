@@ -98,7 +98,7 @@
             </div>
 
             <div class="flex flex-col">
-                <span class="text-sm"> People </span>
+                <span class="text-sm"> Pax </span>
                 <span class="text-center text-sm"
                     >{reservation["no_of_guests"]}</span
                 >
@@ -169,11 +169,13 @@
             {/if}
         </div>
 
-        <div class="mb-3 w-4/5 self-center border border-black ">
-            <span class="text-center text-sm">
-                {reservation["instructions"]}
-            </span>
-        </div>
+        {#if reservation["instructions"] != ""}
+            <div class="mb-3 w-4/5 self-center border border-black ">
+                <span class="text-center text-sm">
+                    {reservation["instructions"]}
+                </span>
+            </div>
+        {/if}
 
         <!-- <div class="relative">
                 <button
