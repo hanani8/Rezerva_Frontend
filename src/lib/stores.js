@@ -43,7 +43,7 @@ export const noOfWaitlists = writable(0);
 
 // Store for the filter in reservations.svelte.
 
-export const filter = writable("4");
+export const filter = writable("1");
 
 // Store the restaurantName
 
@@ -51,5 +51,25 @@ export const restaurantName = writable("");
 
 // Store the restaurantLocation
 
-export const restaurantLocation = writable("");
+// export const restaurantLocation = writable("");
 
+let restaurant_location = writable("")
+
+import { getFetch } from "$lib/fetch";
+import { browser } from "$app/environment"
+const url = import.meta.env.VITE_URL;
+
+if (browser) {
+    const restaurantID = localStorage.getItem("restaurant_id");
+
+    const data = await getFetch(`${url}/api/restaurant/${restaurantID}`);
+
+    if (data.message == "READ_RESTAURANT_SUCCEEDED") {
+        // restaurantName = data.data["restaurant"]["restaurant_name"];
+        restaurant_location = writable(data.data["restaurant"]["location"]);
+    }
+}
+
+export const restaurantLocation = {
+    subscribe: restaurant_location.subscribe
+}
