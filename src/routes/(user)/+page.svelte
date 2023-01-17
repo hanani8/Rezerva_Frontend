@@ -33,9 +33,6 @@
         <hr class="w-5/6 self-center" />
         <div class="flex w-full flex-row justify-center gap-3">
             <div
-                on:click={() => {
-                    $filter = "1";
-                }}
                 class="space-evenly flex h-24 w-24 flex-col items-center justify-center border bg-neutral-800"
             >
                 <span class="text-5xl text-white">{$noOfReservations}</span>
@@ -43,9 +40,6 @@
                 <span class="text-sm text-white">Reservations</span>
             </div>
             <div
-                on:click={() => {
-                    $filter = "2";
-                }}
                 class="space-evenly flex h-24 w-24 flex-col items-center justify-center border bg-neutral-800"
             >
                 <span class="text-5xl text-white">{$noOfWalkIns}</span>
@@ -53,9 +47,6 @@
                 <span class="text-sm text-white">Walk-Ins</span>
             </div>
             <div
-                on:click={() => {
-                    $filter = "3";
-                }}
                 class="space-evenly flex h-24 w-24 flex-col items-center justify-center border bg-neutral-800"
             >
                 <span class="text-5xl text-white">{$noOfWaitlists}</span>
@@ -69,13 +60,15 @@
             RESERVATIONS={data["reservations"].data["reservations"]}
         />
 
-        <a
-            href="/reservations"
-            class="mb-2 w-1/2 self-center rounded-md bg-black px-2 py-2"
-        >
-            <button class="w-full text-lg text-white outline outline-white">
-                Show More
-            </button>
-        </a>
+        {#if $noOfReservations > 0}
+            <a
+                href="/reservations"
+                class="mb-2 w-1/2 self-center rounded-md bg-black px-2 py-2"
+            >
+                <button class="w-full text-lg text-white outline outline-white">
+                    Show More
+                </button>
+            </a>
+        {/if}
     </div>
 </div>
