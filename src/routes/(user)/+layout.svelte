@@ -6,6 +6,8 @@
 
     // Navigation Bar Component
     import Nav from "./Nav.svelte";
+
+    import { authStore } from "../../lib/stores/authStore.js";
 </script>
 
 <main
@@ -18,22 +20,24 @@
         <slot />
     </div>
 
-    <footer
-        class="=sticky bottom-0 flex h-10 flex-row justify-around border-2 border-solid border-black md:h-12 lg:h-14"
-    >
-        <!-- Home -->
-        <a href="/">
-            <img class="h-full" src={home} alt="Home Icon" />
-        </a>
+    {#if $authStore.authenticated}
+        <footer
+            class="=sticky bottom-0 flex h-10 flex-row justify-around border-2 border-solid border-black md:h-12 lg:h-14"
+        >
+            <!-- Home -->
+            <a href="/">
+                <img class="h-full" src={home} alt="Home Icon" />
+            </a>
 
-        <!-- Reservations -->
-        <a href="/reservations">
-            <img class="h-full" src={list} alt="Reservations List Icon" />
-        </a>
+            <!-- Reservations -->
+            <a href="/reservations">
+                <img class="h-full" src={list} alt="Reservations List Icon" />
+            </a>
 
-        <!-- User Account -->
-        <a href="/profile">
-            <img class="h-full" src={account} alt="User Profile Icon" />
-        </a>
-    </footer>
+            <!-- User Account -->
+            <a href="/profile">
+                <img class="h-full" src={account} alt="User Profile Icon" />
+            </a>
+        </footer>
+    {/if}
 </main>
