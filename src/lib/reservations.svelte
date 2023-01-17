@@ -71,7 +71,9 @@
         <ChooseDate limit={0} offset={0} />
     {/if}
 
-    <Filter />
+    {#if dashboard_reservations === "reservations"}
+        <Filter />
+    {/if}
 
     <div class="mx-3 my-3 flex flex-col gap-3 overflow-auto">
         {#if $filter === "4"}
