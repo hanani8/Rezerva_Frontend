@@ -1,38 +1,77 @@
-# create-svelte
+# Rezerva_Frontend
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Welcome to the Rezerva_Frontend repository! This repository contains the frontend codebase for the Rezerva Restaurant Table Booking Web Application.
+## Table of Contents
 
-## Creating a project
+- [Introduction](#introduction)
+- [Project Setup](#project-setup)
+- [Available Scripts](#available-scripts)
+- [Dependencies](#dependencies)
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Introduction
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Rezerva_Frontend is the frontend component of the Rezerva project, which provides users with a seamless interface to  make reservations, and manage their dining experience. It is built using Svelte and Tailwind CSS, and it integrates with the Rezerva backend via API calls.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Project Setup
 
-## Developing
+To set up the Rezerva_Frontend project, follow these steps:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+1. Clone the repository to your local machine:
 
-```bash
-npm run dev
+   ```bash
+   git clone https://github.com/your-username/Rezerva_Frontend.git
+   ```
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+2. Navigate to the project directory:
 
-## Building
+   ```bash
+   cd Rezerva_Frontend
+   ```
 
-To create a production version of your app:
+3. Install the project dependencies:
 
-```bash
-npm run build
-```
+   ```bash
+   npm install
+   ```
 
-You can preview the production build with `npm run preview`.
+4. Configure the API endpoint in the project:
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+   Open the `.env` file and set the `VITE_API_BASE_URL` variable to the URL of your Rezerva backend API:
+
+   ```env
+   VITE_API_BASE_URL=http://your-rezerva-api-url.com
+   ```
+
+5. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+   This will launch the development server, and you can access the application in your browser at `http://localhost:3000`.
+
+## Available Scripts
+
+In the project directory, you can run the following scripts:
+
+- `npm run dev`: Starts the development server. You can view the app in your browser at `http://localhost:3000`.
+
+- `npm run build`: Builds the app for production. The output will be in the `build` directory.
+
+- `npm run preview`: Serves the built app locally for preview.
+
+## Dependencies
+
+Rezerva_Frontend relies on several dependencies, including:
+
+- `@sveltejs/kit`: The SvelteKit framework for building web applications.
+
+- `axios`: A popular HTTP client for making API requests.
+
+- `tailwindcss`: A utility-first CSS framework for styling the application.
+
+- `vite`: A fast and minimalist build tool that serves as the development server.
+
+You can find more details about these dependencies in the `package.json` file.
+
+---
