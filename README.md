@@ -8,6 +8,13 @@ Welcome to the Rezerva_Frontend repository! This repository contains the fronten
 - [Available Scripts](#available-scripts)
 - [Dependencies](#dependencies)
 
+![image](https://github.com/hanani8/Rezerva_Frontend/assets/31515421/72361717-7026-44ff-b173-b65c73332e18)
+![image](https://github.com/hanani8/Rezerva_Frontend/assets/31515421/fc15f0b6-c181-4a67-b7d1-9e11b80218f4)
+![image](https://github.com/hanani8/Rezerva_Frontend/assets/31515421/6fa5e16e-7469-43ed-b66d-7cf6e0fac801)
+![image](https://github.com/hanani8/Rezerva_Frontend/assets/31515421/7ee92375-916d-481b-8e16-6afb243a4742)
+
+
+
 ## Introduction
 
 Rezerva_Frontend is the frontend component of the Rezerva project, which provides users with a seamless interface to  make reservations, and manage their dining experience. It is built using Svelte and Tailwind CSS, and it integrates with the Rezerva backend via API calls.
